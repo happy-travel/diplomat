@@ -16,6 +16,13 @@ namespace Diplomat.Consul.Api
         }
 
 
+        public new Task<bool> Delete(string key)
+        {
+            var path = BuildPath(key);
+            return base.Delete(path);
+        }
+
+
         public async Task<KvPair> Get(string key)
         {
             var path = BuildPath(key);

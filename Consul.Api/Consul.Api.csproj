@@ -16,6 +16,7 @@
     <PackageTags>consul consul-kv netcore</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Kirill Taran</Authors>
+    <Description>The Consul KV client for .Net Core</Description>
   </PropertyGroup>
 
   <ItemGroup>

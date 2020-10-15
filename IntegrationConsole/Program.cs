@@ -28,7 +28,7 @@ namespace IntegrationConsole
             var serviceProvider = serviceScope.ServiceProvider;
 
             var kvClient = serviceProvider.GetRequiredService<IKvClient>();
-            var result = await kvClient.Get("test-key");
+            var result = await kvClient.Delete("1/test-1");
 
             Console.WriteLine(result);
         }
