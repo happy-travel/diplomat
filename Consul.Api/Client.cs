@@ -35,9 +35,21 @@ namespace Diplomat.Consul.Api
         }
 
 
-        private async Task<T> Send<T>(HttpRequestMessage request)
+        protected Task<bool> Put(string path, Stream payload)
         {
-            using var client = HttpClientFactory.CreateClient(HttpClientName);
+            payload.Seek(0, SeekOrigin.Begin);
+            var request = new HttpRequestMessage(HttpMethod.Put, path)
+            {
+                Content = new StreamContent(payload, (int) payload.Length)
+            };
+
+            return Send<bool>(request, HttpUploadClientName);
+        }
+
+
+        private async Task<T> Send<T>(HttpRequestMessage request, string clientName = HttpClientName)
+        {
+            using var client = HttpClientFactory.CreateClient(clientName);
             using var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
             response.EnsureSuccessStatusCode();
@@ -51,6 +63,7 @@ namespace Diplomat.Consul.Api
 
 
         internal const string HttpClientName = "ConsulHttpClient";
+        internal const string HttpUploadClientName = "ConsulUploadHttpClient";
 
         protected readonly Config Config;
         protected readonly IHttpClientFactory HttpClientFactory;

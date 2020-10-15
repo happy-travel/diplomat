@@ -16,6 +16,10 @@ namespace Diplomat.Consul.Api
         }
 
 
+        public Task<bool> Create<T>(string key, T value) 
+            => Put(key, value);
+
+
         public new Task<bool> Delete(string key)
         {
             var path = BuildPath(key);
@@ -46,6 +50,10 @@ namespace Diplomat.Consul.Api
         }
 
 
+        public Task<bool> Update<T>(string key, T value) 
+            => Put(key, value);
+
+
         private static string BuildPath(string key)
         {
             var sanitizedKey = key.StartsWith('/')
@@ -53,6 +61,21 @@ namespace Diplomat.Consul.Api
                 : key;
 
             return KvPathSegment + sanitizedKey;
+        }
+
+
+        private async Task<bool> Put<T>(string key, T value)
+        {
+            await using var stream = new MemoryStream();
+            await using var writer = new StreamWriter(stream, Encoding.UTF8);
+            using var jsonWriter = new JsonTextWriter(writer);
+
+            _jsonSerializer.Serialize(writer, value);
+            await jsonWriter.FlushAsync();
+
+            var path = BuildPath(key);
+
+            return await base.Put(path, stream/*.GetBuffer()*/);
         }
 
 

@@ -16,6 +16,12 @@ namespace Diplomat.Consul.Api.Extensions
                 c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.Token);
             });
+            services.AddHttpClient(Client.HttpUploadClientName, c =>
+            {
+                c.BaseAddress = new Uri($"{config.Scheme}://{config.Address}");
+                c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+                c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.Token);
+            });
 
             services.AddTransient<IKvClient, KvClient>();
 
