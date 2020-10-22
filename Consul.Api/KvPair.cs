@@ -21,7 +21,7 @@ namespace Diplomat.Consul.Api
         ///     Key is the name of the key. It is also part of the URL path when accessed via the API.
         /// </summary>
         [JsonProperty("Key")]
-        public string Key { get; set; }
+        public string Key { get; set; } = null!;
 
         /// <summary>
         ///     LockIndex holds the index corresponding to a lock on this key, if any. This is a read-only field.

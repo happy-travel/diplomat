@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -19,23 +21,24 @@ namespace Diplomat.Consul.Api
         }
 
 
-        protected Task<bool> Delete(string path)
+        protected Task<bool> Delete(string path, QueryOptions options)
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, path);
-            return Send<bool>(request);
+            return Send<bool>(request, options);
         }
 
 
-        protected async Task<List<T>> Get<T>(string path)
+        protected async Task<List<T>> Get<T>(string path, QueryOptions options)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, path);
-            var result = await Send<List<T>?>(request);
+            var pathWithQuery = AppendQueryOptions(path, options);
+            var request = new HttpRequestMessage(HttpMethod.Get, pathWithQuery);
+            var result = await Send<List<T>?>(request, options);
 
             return result ?? Enumerable.Empty<T>().ToList();
         }
 
 
-        protected Task<bool> Put(string path, Stream payload)
+        protected Task<bool> Put(string path, Stream payload, QueryOptions options)
         {
             payload.Seek(0, SeekOrigin.Begin);
             var request = new HttpRequestMessage(HttpMethod.Put, path)
@@ -43,11 +46,31 @@ namespace Diplomat.Consul.Api
                 Content = new StreamContent(payload, (int) payload.Length)
             };
 
-            return Send<bool>(request, HttpUploadClientName);
+            return Send<bool>(request, options, HttpUploadClientName);
         }
 
 
-        private async Task<T> Send<T>(HttpRequestMessage request, string clientName = HttpClientName)
+        private static string AppendQueryOptions(string path, QueryOptions options)
+        {
+            var kvs = new Dictionary<string, object>();
+            if (options.IsRecursive)
+                kvs.Add("recurse", true);
+
+            if (!kvs.Any())
+                return path;
+
+            var builder = new StringBuilder();
+            foreach (var (key, value) in kvs)
+                builder.AppendFormat("&{0}={1}", key, value);
+
+            builder[0] = '?';
+            builder.Insert(0, path);
+
+            return builder.ToString();
+        }
+
+
+        private async Task<T> Send<T>(HttpRequestMessage request, QueryOptions options, string clientName = HttpClientName)
         {
             using var client = HttpClientFactory.CreateClient(clientName);
             using var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);

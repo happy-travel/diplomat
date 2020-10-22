@@ -8,7 +8,12 @@ namespace Diplomat.Consul.Api.Extensions
     {
         public static IServiceCollection AddConsul(this IServiceCollection services, Config config)
         {
-            services.Configure<Config>(c => c = config);
+            services.Configure<Config>(c =>
+            {
+                c.Address = config.Address;
+                c.Scheme = config.Scheme;
+                c.Token = config.Token;
+            });
 
             services.AddHttpClient(Client.HttpClientName, c =>
             {

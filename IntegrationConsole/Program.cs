@@ -14,12 +14,7 @@ namespace IntegrationConsole
             var builder = new HostBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddConsul(new Config
-                    {
-                        Address = "consul-dev.happytravel.com",
-                        Scheme = "https",
-                        Token = "e2845507-3111-8bb7-c1e0-a5bb7da5b8a5"
-                    });
+                    services.AddConsul(ConfigFactory.FromEnvironment());
                 }).UseConsoleLifetime();
  
             var host = builder.Build();
@@ -28,9 +23,9 @@ namespace IntegrationConsole
             var serviceProvider = serviceScope.ServiceProvider;
 
             var kvClient = serviceProvider.GetRequiredService<IKvClient>();
-            var result = await kvClient.Create("1/test-1", "the new test value from the client 123");
+            var results = await kvClient.Get("1", new QueryOptions { IsRecursive = true});
 
-            Console.WriteLine(result);
+            Console.WriteLine(results);
         }
     }
 }

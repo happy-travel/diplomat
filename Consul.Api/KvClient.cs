@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -16,30 +17,36 @@ namespace Diplomat.Consul.Api
         }
 
 
-        public Task<bool> Create<T>(string key, T value) 
+        public Task<bool> Create<T>(string key, T value, QueryOptions? options = null) 
             => Put(key, value);
 
 
-        public new Task<bool> Delete(string key)
+        public new Task<bool> Delete(string key, QueryOptions? options = null)
         {
+            options ??= QueryOptions.Default;
+
             var path = BuildPath(key);
-            return base.Delete(path);
+            return base.Delete(path, options);
         }
 
 
-        public async Task<KvPair> Get(string key)
+        public async Task<List<KvPair>> Get(string key, QueryOptions? options = null)
         {
-            var path = BuildPath(key);
-            var pairs =  await Get<KvPair>(path);
+            options ??= QueryOptions.Default;
 
-            return pairs.FirstOrDefault()!;
+            var path = BuildPath(key);
+            return await Get<KvPair>(path, options);
         }
 
 
-        public async Task<T> GetValue<T>(string key)
+        public async Task<T> GetValue<T>(string key, QueryOptions? options = null)
         {
-            var pair = await Get(key);
-            if (pair.Value is null)
+            var pairs = await Get(key, options);
+            if (!pairs.Any())
+                return default!;
+
+            var pair = pairs.First();
+            if (pair?.Value is null)
                 return default!;
 
             await using var stream = new MemoryStream(pair.Value);
@@ -50,7 +57,7 @@ namespace Diplomat.Consul.Api
         }
 
 
-        public Task<bool> Update<T>(string key, T value) 
+        public Task<bool> Update<T>(string key, T value, QueryOptions? options = null) 
             => Put(key, value);
 
 
@@ -64,8 +71,10 @@ namespace Diplomat.Consul.Api
         }
 
 
-        private async Task<bool> Put<T>(string key, T value)
+        private async Task<bool> Put<T>(string key, T value, QueryOptions? options = null)
         {
+            options ??= QueryOptions.Default;
+
             await using var stream = new MemoryStream();
             await using var writer = new StreamWriter(stream, Encoding.UTF8);
             using var jsonWriter = new JsonTextWriter(writer);
@@ -75,7 +84,7 @@ namespace Diplomat.Consul.Api
 
             var path = BuildPath(key);
 
-            return await base.Put(path, stream/*.GetBuffer()*/);
+            return await base.Put(path, stream, options);
         }
 
 
