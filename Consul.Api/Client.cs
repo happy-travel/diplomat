@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -24,7 +23,7 @@ namespace Diplomat.Consul.Api
         protected Task<bool> Delete(string path, QueryOptions options)
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, path);
-            return Send<bool>(request, options);
+            return Send<bool>(request);
         }
 
 
@@ -32,7 +31,7 @@ namespace Diplomat.Consul.Api
         {
             var pathWithQuery = AppendQueryOptions(path, options);
             var request = new HttpRequestMessage(HttpMethod.Get, pathWithQuery);
-            var result = await Send<List<T>?>(request, options);
+            var result = await Send<List<T>?>(request);
 
             return result ?? Enumerable.Empty<T>().ToList();
         }
@@ -46,7 +45,7 @@ namespace Diplomat.Consul.Api
                 Content = new StreamContent(payload, (int) payload.Length)
             };
 
-            return Send<bool>(request, options, HttpUploadClientName);
+            return Send<bool>(request, HttpUploadClientName);
         }
 
 
@@ -70,7 +69,7 @@ namespace Diplomat.Consul.Api
         }
 
 
-        private async Task<T> Send<T>(HttpRequestMessage request, QueryOptions options, string clientName = HttpClientName)
+        private async Task<T> Send<T>(HttpRequestMessage request, string clientName = HttpClientName)
         {
             using var client = HttpClientFactory.CreateClient(clientName);
             using var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
@@ -81,7 +80,7 @@ namespace Diplomat.Consul.Api
             using var reader = new StreamReader(stream);
             using var jsonReader = new JsonTextReader(reader);
 
-            return _jsonSerializer.Deserialize<T>(jsonReader);
+            return _jsonSerializer.Deserialize<T>(jsonReader)!;
         }
 
 

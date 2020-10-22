@@ -41,19 +41,41 @@ namespace Diplomat.Consul.Api
 
         public async Task<T> GetValue<T>(string key, QueryOptions? options = null)
         {
+            var values = await GetValues<T>(key, options);
+            if (!values.Any())
+                return default!;
+
+            if (values.TryGetValue(key, out var value))
+                return value;
+
+            return default!;
+        }
+
+
+        public async Task<Dictionary<string, T>> GetValues<T>(string key, QueryOptions? options = null)
+        {
+            options ??= QueryOptions.Default;
+            options.IsRecursive = true;
+
             var pairs = await Get(key, options);
-            if (!pairs.Any())
-                return default!;
+            var results = new Dictionary<string, T>();
+            foreach (var pair in pairs)
+            {
+                if (pair.Value is null)
+                {
+                    results.Add(pair.Key, default!);
+                    continue;
+                }
 
-            var pair = pairs.First();
-            if (pair?.Value is null)
-                return default!;
+                await using var stream = new MemoryStream(pair.Value);
+                using var reader = new StreamReader(stream, Encoding.UTF8);
+                using var jsonReader = new JsonTextReader(reader);
 
-            await using var stream = new MemoryStream(pair.Value);
-            using var reader = new StreamReader(stream, Encoding.UTF8);
-            using var jsonReader = new JsonTextReader(reader);
+                var value = _jsonSerializer.Deserialize<T>(jsonReader);
+                results.Add(pair.Key, value!);
+            }
 
-            return _jsonSerializer.Deserialize<T>(jsonReader);
+            return results;
         }
 
 

@@ -23,7 +23,7 @@ namespace IntegrationConsole
             var serviceProvider = serviceScope.ServiceProvider;
 
             var kvClient = serviceProvider.GetRequiredService<IKvClient>();
-            var results = await kvClient.Get("1", new QueryOptions { IsRecursive = true});
+            var results = await kvClient.GetValues<string>("1", new QueryOptions { IsRecursive = true});
 
             Console.WriteLine(results);
         }

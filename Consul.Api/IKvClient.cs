@@ -13,6 +13,8 @@ namespace Diplomat.Consul.Api
 
         Task<T> GetValue<T>(string key, QueryOptions? options = null);
 
+        Task<Dictionary<string, T>> GetValues<T>(string key, QueryOptions? options = null);
+
         Task<bool> Update<T>(string key, T value, QueryOptions? options = null);
     }
 }

@@ -15,15 +15,16 @@ namespace Diplomat.Consul.Api.Extensions
                 c.Token = config.Token;
             });
 
+            var baseUrl = $"{config.Scheme}://{config.Address}";
             services.AddHttpClient(Client.HttpClientName, c =>
             {
-                c.BaseAddress = new Uri($"{config.Scheme}://{config.Address}");
+                c.BaseAddress = new Uri(baseUrl);
                 c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.Token);
             });
             services.AddHttpClient(Client.HttpUploadClientName, c =>
             {
-                c.BaseAddress = new Uri($"{config.Scheme}://{config.Address}");
+                c.BaseAddress = new Uri(baseUrl);
                 c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
                 c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.Token);
             });
