@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DiplomatKvUpdater": {
+      "commandName": "Project",
+      "commandLineArgs": "path \"..\\..\\..\\..\\test-settings.json\" service-name Nagoya environment development"
+    }
+  }
+}

@@ -5,7 +5,14 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consul.Api", "Consul.Api\Consul.Api.csproj", "{396C66E9-CDF7-409B-9C6D-855AD97EFC85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationConsole", "IntegrationConsole\IntegrationConsole.csproj", "{3279A753-9AAA-4F08-9FDC-61C95F90822F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationConsole", "IntegrationConsole\IntegrationConsole.csproj", "{3279A753-9AAA-4F08-9FDC-61C95F90822F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomatKvUpdater", "DiplomatKvUpdater\DiplomatKvUpdater.csproj", "{F98439EF-63D6-4E39-92D2-30F4A2AC1A73}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test Files", "Test Files", "{05ADAE78-6883-4BD3-8B86-01D7ABB838BE}"
+	ProjectSection(SolutionItems) = preProject
+		test-settings.json = test-settings.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +28,10 @@ Global
 		{3279A753-9AAA-4F08-9FDC-61C95F90822F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3279A753-9AAA-4F08-9FDC-61C95F90822F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3279A753-9AAA-4F08-9FDC-61C95F90822F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F98439EF-63D6-4E39-92D2-30F4A2AC1A73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F98439EF-63D6-4E39-92D2-30F4A2AC1A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F98439EF-63D6-4E39-92D2-30F4A2AC1A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F98439EF-63D6-4E39-92D2-30F4A2AC1A73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

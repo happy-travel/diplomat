@@ -1,0 +1,26 @@
+{
+  "test-keys/1": "string",
+  "test-keys/2": {
+    "null": null,
+    "zero": 0,
+    "number": 1,
+    "true": true,
+    "false": false
+  },
+  "test-keys/3": [
+    {
+      "null": null,
+      "zero": 0,
+      "number": 1,
+      "true": true,
+      "false": false
+    },
+    {
+      "null": null,
+      "zero": 0,
+      "number": 1,
+      "true": true,
+      "false": false
+    }
+  ]
+}
