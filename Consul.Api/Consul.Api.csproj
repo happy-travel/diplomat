@@ -13,6 +13,7 @@
     <PackageId>Diplomat</PackageId>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
+    <RepositoryURL>https://github.com/happy-travel/diplomat</RepositoryURL>    
     <PackageTags>consul consul-kv netcore</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Kirill Taran</Authors>
