@@ -11,8 +11,7 @@
     <Company>HappyTravel</Company>
     <Product>Diplomat</Product>
     <PackageId>Diplomat</PackageId>
-    <PackageProjectUrl></PackageProjectUrl>
-    <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/happy-travel/diplomat</PackageProjectUrl>
     <RepositoryURL>https://github.com/happy-travel/diplomat</RepositoryURL>    
     <PackageTags>consul consul-kv netcore</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
