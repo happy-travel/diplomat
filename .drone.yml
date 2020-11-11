@@ -17,7 +17,7 @@ steps:
   commands:
     - dotnet build -c Release
     - dotnet pack -c Release -o out
-    - dotnet nuget push "./out/*.nupkg" --skip-duplicate --no-symbols true -s github
+    - dotnet nuget push "./out/Diplomat*.nupkg" --skip-duplicate --no-symbols true -s github
 
 - name: discord
   pull: always
