@@ -44,13 +44,13 @@ namespace Diplomat.DiplomatKvUpdater
         {
             for (var i = 0; i < args.Length; i++)
             {
-                if (keys.Any(key => string.Compare(args[i], key, StringComparison.InvariantCultureIgnoreCase) == 0))
-                {
-                    if (i + 1 >= args.Length)
-                        continue;
+                if (!keys.Any(key => key.Equals(args[i], StringComparison.InvariantCulture)))
+                    continue;
 
-                    return args[i + 1];
-                }
+                if (i + 1 >= args.Length)
+                    continue;
+
+                return args[i + 1];
             }
 
             return null;
@@ -72,7 +72,7 @@ namespace Diplomat.DiplomatKvUpdater
         private static IKvClient GetKvClient()
         {
             var builder = new HostBuilder()
-                .ConfigureServices((hostContext, services) => { services.AddConsul(ConfigFactory.FromEnvironment()); }).UseConsoleLifetime();
+                .ConfigureServices((hostContext, services) => { services.AddConsulDiplomatProvider(ConfigFactory.FromEnvironment()); }).UseConsoleLifetime();
 
             var host = builder.Build();
 

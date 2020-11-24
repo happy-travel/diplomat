@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Net.Http.Headers;
+using Diplomat.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
+// ReSharper disable once CheckNamespace
 namespace Diplomat.Consul.Api.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddConsul(this IServiceCollection services, Config config)
+        public static IServiceCollection AddConsulDiplomatProvider(this IServiceCollection services, Config config)
         {
             services.Configure<Config>(c =>
             {
@@ -30,6 +32,7 @@ namespace Diplomat.Consul.Api.Extensions
             });
 
             services.AddTransient<IKvClient, KvClient>();
+            services.AddTransient<ISettingsProvider, ConsulSettingsProvider>();
 
             return services;
         }
