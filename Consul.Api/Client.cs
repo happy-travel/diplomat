@@ -20,14 +20,14 @@ namespace Diplomat.Consul.Api
         }
 
 
-        protected Task<bool> Delete(string path, QueryOptions options)
+        protected ValueTask<bool> Delete(string path, QueryOptions options)
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, path);
             return Send<bool>(request);
         }
 
 
-        protected async Task<List<T>> Get<T>(string path, QueryOptions options)
+        protected async ValueTask<List<T>> Get<T>(string path, QueryOptions options)
         {
             var pathWithQuery = AppendQueryOptions(path, options);
             var request = new HttpRequestMessage(HttpMethod.Get, pathWithQuery);
@@ -37,7 +37,7 @@ namespace Diplomat.Consul.Api
         }
 
 
-        protected Task<bool> Put(string path, Stream payload, QueryOptions options)
+        protected ValueTask<bool> Put(string path, Stream payload, QueryOptions options)
         {
             payload.Seek(0, SeekOrigin.Begin);
             var request = new HttpRequestMessage(HttpMethod.Put, path)
@@ -69,7 +69,7 @@ namespace Diplomat.Consul.Api
         }
 
 
-        private async Task<T> Send<T>(HttpRequestMessage request, string clientName = HttpClientName)
+        private async ValueTask<T> Send<T>(HttpRequestMessage request, string clientName = HttpClientName)
         {
             using var client = HttpClientFactory.CreateClient(clientName);
             using var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);

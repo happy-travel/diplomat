@@ -13,7 +13,7 @@ namespace Diplomat.FileSettingsProvider
         }
 
 
-        public ValueTask<bool> Create<T>(string key, T value)
+        public ValueTask<bool> Create<T>(string key, T value, string? _ = null)
         {
             if (value is null)
                 return new ValueTask<bool>(false);
@@ -24,7 +24,7 @@ namespace Diplomat.FileSettingsProvider
         }
 
 
-        public ValueTask<bool> Delete(string key)
+        public ValueTask<bool> Delete(string key, string? _ = null)
         {
             _settings.Remove(key);
 
@@ -32,13 +32,13 @@ namespace Diplomat.FileSettingsProvider
         }
 
 
-        public ValueTask<T> Get<T>(string key) 
+        public ValueTask<T> Get<T>(string key, string? _ = null) 
             => _settings.TryGetValue(key, out var value) 
                 ? new ValueTask<T>((T) value) 
                 : default;
 
 
-        public ValueTask<Dictionary<string, T>> GetValues<T>(string key)
+        public ValueTask<Dictionary<string, T>> GetValues<T>(string key, string? _ = null)
         {
             var results = _settings.Keys
                 .Where(sk => sk.StartsWith(key))
@@ -48,7 +48,7 @@ namespace Diplomat.FileSettingsProvider
         }
 
 
-        public ValueTask<bool> Update<T>(string key, T value)
+        public ValueTask<bool> Update<T>(string key, T value, string? _ = null)
         {
             if (value is null)
                 return new ValueTask<bool>(false);

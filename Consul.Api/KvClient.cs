@@ -17,11 +17,11 @@ namespace Diplomat.Consul.Api
         }
 
 
-        public Task<bool> Create<T>(string key, T value, QueryOptions? options = null) 
+        public ValueTask<bool> Create<T>(string key, T value, QueryOptions? options = null) 
             => Put(key, value);
 
 
-        public new Task<bool> Delete(string key, QueryOptions? options = null)
+        public new ValueTask<bool> Delete(string key, QueryOptions? options = null)
         {
             options ??= QueryOptions.Default;
 
@@ -30,7 +30,7 @@ namespace Diplomat.Consul.Api
         }
 
 
-        public async Task<List<KvPair>> Get(string key, QueryOptions? options = null)
+        public async ValueTask<List<KvPair>> Get(string key, QueryOptions? options = null)
         {
             options ??= QueryOptions.Default;
 
@@ -39,7 +39,7 @@ namespace Diplomat.Consul.Api
         }
 
 
-        public async Task<T> GetValue<T>(string key, QueryOptions? options = null)
+        public async ValueTask<T> GetValue<T>(string key, QueryOptions? options = null)
         {
             var values = await GetValues<T>(key, options);
             if (!values.Any())
@@ -52,7 +52,7 @@ namespace Diplomat.Consul.Api
         }
 
 
-        public async Task<Dictionary<string, T>> GetValues<T>(string key, QueryOptions? options = null)
+        public async ValueTask<Dictionary<string, T>> GetValues<T>(string key, QueryOptions? options = null)
         {
             options ??= QueryOptions.Default;
             options.IsRecursive = true;
@@ -79,7 +79,7 @@ namespace Diplomat.Consul.Api
         }
 
 
-        public Task<bool> Update<T>(string key, T value, QueryOptions? options = null) 
+        public ValueTask<bool> Update<T>(string key, T value, QueryOptions? options = null) 
             => Put(key, value);
 
 
@@ -93,7 +93,7 @@ namespace Diplomat.Consul.Api
         }
 
 
-        private async Task<bool> Put<T>(string key, T value, QueryOptions? options = null)
+        private async ValueTask<bool> Put<T>(string key, T value, QueryOptions? options = null)
         {
             options ??= QueryOptions.Default;
 
