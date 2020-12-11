@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Diplomat.Abstractions;
+using HappyTravel.Diplomat.Abstractions;
 using Microsoft.Extensions.Options;
 
-// ReSharper disable once CheckNamespace
-namespace Diplomat.Consul.Api
+namespace HappyTravel.Diplomat.Consul.Api
 {
     public class ConsulSettingsProvider : ISettingsProvider
     {

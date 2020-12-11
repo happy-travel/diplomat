@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Diplomat.Abstractions
+namespace HappyTravel.Diplomat.Abstractions
 {
     public interface ISettingsProvider
     {

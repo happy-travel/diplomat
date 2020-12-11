@@ -1,5 +1,5 @@
 ﻿using System;
-using Diplomat.Abstractions;
+using HappyTravel.Diplomat.Abstractions;
 
 namespace Diplomat
 {

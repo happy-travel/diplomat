@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Net.Http.Headers;
-using Diplomat.Abstractions;
+using HappyTravel.Diplomat.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-// ReSharper disable once CheckNamespace
-namespace Diplomat.Consul.Api.Extensions
+namespace HappyTravel.Diplomat.Consul.Api.Extensions
 {
     public static class ServiceCollectionExtensions
     {

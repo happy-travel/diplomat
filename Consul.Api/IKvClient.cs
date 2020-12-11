@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Diplomat.Consul.Api
+namespace HappyTravel.Diplomat.Consul.Api
 {
     public interface IKvClient
     {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace Diplomat.Consul.Api
+namespace HappyTravel.Diplomat.Consul.Api
 {
     public class KvClient : Client, IKvClient
     {

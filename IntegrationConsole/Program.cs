@@ -2,11 +2,10 @@
 using System;
 using System.Threading.Tasks;
 using Diplomat;
-using Diplomat.Abstractions;
-using Diplomat.Consul.Api;
-using Diplomat.Consul.Api.Extensions;
 using Diplomat.Extensions;
-using Diplomat.FileSettingsProvider.Extensions;
+using HappyTravel.Diplomat.Abstractions;
+using HappyTravel.Diplomat.Consul.Api;
+using HappyTravel.Diplomat.Consul.Api.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IntegrationConsole

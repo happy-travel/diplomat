@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Diplomat.Abstractions;
+using HappyTravel.Diplomat.Abstractions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
-namespace Diplomat.FileSettingsProvider
+namespace HappyTravel.Diplomat.FileSettingsProvider
 {
     public class FileSettingsReader : ISettingsReader
     {

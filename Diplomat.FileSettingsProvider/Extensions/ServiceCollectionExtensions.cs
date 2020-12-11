@@ -1,7 +1,7 @@
-﻿using Diplomat.Abstractions;
+﻿using HappyTravel.Diplomat.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Diplomat.FileSettingsProvider.Extensions
+namespace HappyTravel.Diplomat.FileSettingsProvider.Extensions
 {
     public static class ServiceCollectionExtensions
     {

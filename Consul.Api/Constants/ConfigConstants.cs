@@ -1,4 +1,4 @@
-﻿namespace Diplomat.Consul.Api.Constants
+﻿namespace HappyTravel.Diplomat.Consul.Api.Constants
 {
     internal static class ConfigConstants
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using Diplomat.Consul.Api.Constants;
+using HappyTravel.Diplomat.Consul.Api.Constants;
 
-namespace Diplomat.Consul.Api
+namespace HappyTravel.Diplomat.Consul.Api
 {
     public class ConfigFactory
     {

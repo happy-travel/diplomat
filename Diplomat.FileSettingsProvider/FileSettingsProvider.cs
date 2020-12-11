@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Diplomat.Abstractions;
+using HappyTravel.Diplomat.Abstractions;
 
-namespace Diplomat.FileSettingsProvider
+namespace HappyTravel.Diplomat.FileSettingsProvider
 {
     public class FileSettingsProvider : ISettingsProvider
     {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Diplomat.Consul.Api
+namespace HappyTravel.Diplomat.Consul.Api
 {
     public class KvPair
     {

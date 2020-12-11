@@ -1,4 +1,4 @@
-﻿namespace Diplomat.Abstractions
+﻿namespace HappyTravel.Diplomat.Abstractions
 {
     public class DiplomatOptions
     {
