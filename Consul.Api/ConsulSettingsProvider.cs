@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HappyTravel.Diplomat.Abstractions;
 using Microsoft.Extensions.Options;
@@ -23,6 +25,15 @@ namespace HappyTravel.Diplomat.Consul.Api
             => _kvClient.Delete(BuildKey(key, keyPrefix));
 
 
+        public async ValueTask<byte[]> Get(string key, string? keyPrefix = null)
+        {
+            var kvPairs = await _kvClient.Get(BuildKey(key, keyPrefix));
+            var pair = kvPairs.First();
+
+            return pair.Value!;
+        }
+
+
         public async ValueTask<T> Get<T>(string key, string? keyPrefix = null) 
             => await _kvClient.GetValue<T>(BuildKey(key, keyPrefix));
 
@@ -42,7 +53,9 @@ namespace HappyTravel.Diplomat.Consul.Api
         private string BuildKey(string key, string? prefix = null)
         {
             var pref = prefix ?? _options.KeyPrefix;
-            return $"{pref}/{key}";
+            return string.IsNullOrWhiteSpace(key) 
+                ? pref 
+                : $"{pref}/{key}";
         }
 
 

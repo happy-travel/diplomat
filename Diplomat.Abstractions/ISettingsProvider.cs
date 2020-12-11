@@ -9,6 +9,8 @@ namespace HappyTravel.Diplomat.Abstractions
 
         ValueTask<bool> Delete(string key, string? keyPrefix = null);
 
+        ValueTask<byte[]> Get(string key, string? keyPrefix = null);
+
         ValueTask<T> Get<T>(string key, string? keyPrefix = null);
 
         ValueTask<Dictionary<string, T>> GetValues<T>(string key, string? keyPrefix = null);

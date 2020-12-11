@@ -1,11 +1,13 @@
 ﻿using Microsoft.Extensions.Hosting;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Diplomat;
 using Diplomat.Extensions;
 using HappyTravel.Diplomat.Abstractions;
 using HappyTravel.Diplomat.Consul.Api;
 using HappyTravel.Diplomat.Consul.Api.Extensions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IntegrationConsole
@@ -20,7 +22,7 @@ namespace IntegrationConsole
                     services.Configure<DiplomatOptions>(o =>
                     {
                         o.LocalSettingsPath = @"..\..\..\..\test-settings.json";
-                        o.KeyPrefix = "nagoya/development";
+                        o.KeyPrefix = "tsutsujigasaki/development";
                     });
                     services.AddDiplomat();
                     services.AddConsulDiplomatProvider(ConfigFactory.FromEnvironment());
@@ -33,7 +35,11 @@ namespace IntegrationConsole
 
             var factory = serviceProvider.GetRequiredService<IDiplomatFactory>();
             var diplomat = factory.Create();
-            var result = await diplomat.Get<string>("test-keys/1");
+            var result = await diplomat.Get("");
+
+            var config = new ConfigurationBuilder()
+                .AddJsonStream(new MemoryStream(result))
+                .Build();
 
             Console.WriteLine(result);
         }

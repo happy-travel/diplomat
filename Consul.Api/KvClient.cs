@@ -67,6 +67,8 @@ namespace HappyTravel.Diplomat.Consul.Api
                     continue;
                 }
 
+                var type = typeof(T);
+
                 await using var stream = new MemoryStream(pair.Value);
                 using var reader = new StreamReader(stream, Encoding.UTF8);
                 using var jsonReader = new JsonTextReader(reader);

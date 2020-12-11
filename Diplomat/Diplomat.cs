@@ -11,8 +11,12 @@ namespace Diplomat
         }
 
 
-        public async ValueTask<T> Get<T>(string key) 
-            => await _provider.Get<T>(key);
+        public ValueTask<byte[]> Get(string key) 
+            => _provider.Get(key);
+
+
+        public ValueTask<T> Get<T>(string key) 
+            => _provider.Get<T>(key);
 
 
         private readonly ISettingsProvider _provider;

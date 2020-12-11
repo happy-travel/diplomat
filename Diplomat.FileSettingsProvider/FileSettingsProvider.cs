@@ -32,6 +32,9 @@ namespace HappyTravel.Diplomat.FileSettingsProvider
         }
 
 
+        public ValueTask<byte[]> Get(string key, string? keyPrefix = null) => throw new System.NotImplementedException();
+
+
         public ValueTask<T> Get<T>(string key, string? _ = null) 
             => _settings.TryGetValue(key, out var value) 
                 ? new ValueTask<T>((T) value) 
