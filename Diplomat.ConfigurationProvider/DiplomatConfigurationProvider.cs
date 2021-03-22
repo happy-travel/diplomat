@@ -11,11 +11,17 @@ using Newtonsoft.Json.Linq;
 
 namespace Diplomat.ConfigurationProvider
 {
+    // based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
      public class DiplomatConfigurationProvider : Microsoft.Extensions.Configuration.ConfigurationProvider
     {
-        public DiplomatConfigurationProvider(string address, string key, string token)
+        public DiplomatConfigurationProvider(List<Uri> consulUrls, string key, string token)
         {
-            _consulUrl = new Uri($"{address}/v1/kv/{key}");
+            _consulUrls = consulUrls.Select(u => new Uri(u, $"v1/kv/{key}")).ToList();
+
+            if (_consulUrls.Count <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(consulUrls));
+            }
 
             _httpClient =
                 new HttpClient(
@@ -46,22 +52,33 @@ namespace Diplomat.ConfigurationProvider
             {
                 try
                 {
+                    if (_failureCount > _consulUrls.Count)
+                    {
+                        _failureCount = 0;
+                        await Task.Delay(TimeSpan.FromMinutes(1));
+                    }
+
                     Data = await ExecuteQueryAsync(true);
                     OnReload();
+                    _failureCount = 0;
+                }
+                catch (TaskCanceledException)
+                {
+                    _failureCount = 0;
                 }
                 catch
                 {
-                    // TODO empty try/catch can cause unexpected problems
-                    await Task.Delay(TimeSpan.FromMinutes(1));
+                    _consulUrlIndex = (_consulUrlIndex + 1) % _consulUrls.Count;
+                    _failureCount++;
                 }
             }
-        }
+        } 
 
         private async Task<IDictionary<string, string>> ExecuteQueryAsync(bool isBlocking = false)
         {
             var requestUri = isBlocking ? $"?index={_consulConfigurationIndex}" : "";
             using var request =
-                new HttpRequestMessage(HttpMethod.Get, new Uri(_consulUrl, requestUri));
+                new HttpRequestMessage(HttpMethod.Get, new Uri(_consulUrls[_consulUrlIndex], requestUri));
             using var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             if (response.Headers.Contains(ConsulIndexHeader))
@@ -80,9 +97,7 @@ namespace Diplomat.ConfigurationProvider
                         : null
                 ))
                 .SelectMany(Flatten)
-                .ToDictionary(v
-                        => ConfigurationPath.Combine(v.Key.Split('/')),
-                    v => v.Value,
+                .ToDictionary(v => ConfigurationPath.Combine(v.Key.Split('/')), v => v.Value,
                     StringComparer.OrdinalIgnoreCase);
         }
         
@@ -115,8 +130,10 @@ namespace Diplomat.ConfigurationProvider
         private const string ConsulIndexHeader = "X-Consul-Index";
 
         private readonly HttpClient _httpClient;
-        private readonly Uri _consulUrl;
+        private readonly IReadOnlyList<Uri> _consulUrls;
         private readonly Task _configurationListeningTask;
+        private int _consulUrlIndex; 
+        private int _failureCount;
         private int _consulConfigurationIndex;
     }
 }

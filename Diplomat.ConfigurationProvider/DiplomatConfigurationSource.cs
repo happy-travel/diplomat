@@ -1,22 +1,25 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 
 namespace Diplomat.ConfigurationProvider
 {
+    // based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
     public class DiplomatConfigurationSource : IConfigurationSource
     {
-        public DiplomatConfigurationSource(string address, string key, string token)
+        public DiplomatConfigurationSource(List<Uri> urls, string key, string token)
         {
-            Address = address;
+            Urls = urls;
             Key = key;
             Token = token;
         }
         
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return new DiplomatConfigurationProvider(Address, Key, Token);
+            return new DiplomatConfigurationProvider(Urls, Key, Token);
         }
 
-        private string Address { get; }
+        private List<Uri> Urls { get; }
         private string Key { get; }
         private string Token { get; }
     }

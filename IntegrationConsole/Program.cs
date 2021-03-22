@@ -39,7 +39,7 @@ namespace IntegrationConsole
             var token = "";
             
             var config = new ConfigurationBuilder()
-                .AddDiplomat(address, path, token)
+                .AddDiplomat(new List<Uri>{new(address)}, path, token)
                 .Build();
 
             Console.WriteLine(result);
