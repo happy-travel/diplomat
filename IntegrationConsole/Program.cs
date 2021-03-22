@@ -34,17 +34,18 @@ namespace IntegrationConsole
  
             var host = builder.Build();
 
-            var address = "https://consul-dev.happytravel.com";
-            var path = "tsutsujigasaki/development";
+            var address = "";
+            var path = "";
             var token = "";
             
             var config = new ConfigurationBuilder()
                 .AddDiplomat(new List<Uri>{new(address)}, path, token)
                 .Build();
-
-            Console.WriteLine(result);
+            
+            var debug = config.GetDebugView();
+            ;
+            
+            host.Run();
         }
-
-       
     }
 }
