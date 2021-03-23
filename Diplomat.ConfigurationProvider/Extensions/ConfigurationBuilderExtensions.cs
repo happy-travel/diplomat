@@ -4,13 +4,20 @@ using Microsoft.Extensions.Configuration;
 
 namespace Diplomat.ConfigurationProvider.Extensions
 {
-    // based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
+    // Based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
     public static class ConfigurationBuilderExtensions
     {
         public static IConfigurationBuilder AddDiplomat(this IConfigurationBuilder configurationBuilder, 
-            List<Uri> urls, string key, string token)
+            List<Uri> urls, string key, string token, int delayOnFailureInSeconds = 60)
         {
-            return configurationBuilder.Add(new DiplomatConfigurationSource(urls, key, token));
+            return configurationBuilder.Add(new DiplomatConfigurationSource(urls, key, token, delayOnFailureInSeconds));
+        }
+        
+        
+        public static IConfigurationBuilder AddDiplomat(this IConfigurationBuilder configurationBuilder, 
+            string url, string key, string token, int delayOnFailureInSeconds = 60)
+        {
+            return configurationBuilder.Add(new DiplomatConfigurationSource(new List<Uri>{ new(url) }, key, token, delayOnFailureInSeconds));
         }
     }
 }

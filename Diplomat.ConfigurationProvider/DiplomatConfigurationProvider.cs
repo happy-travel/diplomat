@@ -11,32 +11,42 @@ using Newtonsoft.Json.Linq;
 
 namespace Diplomat.ConfigurationProvider
 {
-    // based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
-     public class DiplomatConfigurationProvider : Microsoft.Extensions.Configuration.ConfigurationProvider
+    // Based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
+    public class DiplomatConfigurationProvider : Microsoft.Extensions.Configuration.ConfigurationProvider
     {
-        public DiplomatConfigurationProvider(List<Uri> consulUrls, string key, string token)
+        public DiplomatConfigurationProvider(List<Uri> consulUrls, string key, string token, int delayOnFailureInSeconds)
         {
-            _consulUrls = consulUrls.Select(u => new Uri(u, $"v1/kv/{key}")).ToList();
+            _consulUrls = consulUrls
+                .Select(url => new Uri(url, $"v1/kv/{key}"))
+                .ToList();
 
             if (_consulUrls.Count <= 0)
-            {
                 throw new ArgumentOutOfRangeException(nameof(consulUrls));
-            }
 
-            _httpClient =
-                new HttpClient(
-                    new HttpClientHandler
-                        {AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,}, true);
-            
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            _httpClient = CreateHttpClient(token);
+            _delayOnFailureInSeconds = delayOnFailureInSeconds;
             _configurationListeningTask = new Task(ListenToConfigurationChanges);
         }
+
+
+        private static HttpClient CreateHttpClient(string token)
+        {
+            var handler = new HttpClientHandler
+            {
+                AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
+            };
+            var client = new HttpClient(handler, true);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            return client;
+        }
+
 
         public override void Load()
         {
             LoadAsync().ConfigureAwait(false).GetAwaiter().GetResult();
         }
+
 
         private async Task LoadAsync()
         {
@@ -46,39 +56,41 @@ namespace Diplomat.ConfigurationProvider
                 _configurationListeningTask.Start();
         }
 
+
         private async void ListenToConfigurationChanges()
         {
+            var consulUrlIndex = 0;
             while (true)
             {
                 try
                 {
-                    if (_failureCount > _consulUrls.Count)
-                    {
-                        _failureCount = 0;
-                        await Task.Delay(TimeSpan.FromMinutes(1));
-                    }
-
-                    Data = await ExecuteQueryAsync(true);
+                    Data = await ExecuteQueryAsync(consulUrlIndex, true);
                     OnReload();
-                    _failureCount = 0;
-                }
-                catch (TaskCanceledException)
-                {
-                    _failureCount = 0;
                 }
                 catch
                 {
-                    _consulUrlIndex = (_consulUrlIndex + 1) % _consulUrls.Count;
-                    _failureCount++;
+                    consulUrlIndex = GetNextConsulUrlIndex(consulUrlIndex);
+                    if (consulUrlIndex == 0)
+                        await Task.Delay(TimeSpan.FromSeconds(_delayOnFailureInSeconds));
                 }
             }
-        } 
+        }
 
-        private async Task<IDictionary<string, string>> ExecuteQueryAsync(bool isBlocking = false)
+
+        private int GetNextConsulUrlIndex(int current)
+        {
+            var next = current + 1;
+            return next < _consulUrls.Count
+                ? next
+                : 0;
+        }
+
+      
+        private async Task<IDictionary<string, string>> ExecuteQueryAsync(int consulUrlIndex = 0, bool isBlocking = false)
         {
             var requestUri = isBlocking ? $"?index={_consulConfigurationIndex}" : "";
             using var request =
-                new HttpRequestMessage(HttpMethod.Get, new Uri(_consulUrls[_consulUrlIndex], requestUri));
+                new HttpRequestMessage(HttpMethod.Get, new Uri(_consulUrls[consulUrlIndex], requestUri));
             using var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             if (response.Headers.Contains(ConsulIndexHeader))
@@ -91,16 +103,15 @@ namespace Diplomat.ConfigurationProvider
             return tokens
                 .Select(k => KeyValuePair.Create
                 (
-                    "",
-                    k.Value<string>("Value") != null
-                        ? JToken.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(k.Value<string>("Value"))))
-                        : null
+                    key: string.Empty,
+                    value: JToken.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(k.Value<string>("Value"))))
                 ))
                 .SelectMany(Flatten)
                 .ToDictionary(v => ConfigurationPath.Combine(v.Key.Split('/')), v => v.Value,
                     StringComparer.OrdinalIgnoreCase);
         }
-        
+
+
         private static IEnumerable<KeyValuePair<string, string>> Flatten(KeyValuePair<string, JToken> tuple)
         {
             if (!(tuple.Value is JObject value))
@@ -111,29 +122,31 @@ namespace Diplomat.ConfigurationProvider
                 var propertyKey = !string.IsNullOrEmpty(tuple.Key)
                     ? $"{tuple.Key}/{property.Key}"
                     : property.Key;
-                
+
                 switch (property.Value.Type)
                 {
                     case JTokenType.Object:
                         foreach (var item in Flatten(KeyValuePair.Create(propertyKey, property.Value)))
                             yield return item;
+
                         break;
                     case JTokenType.Array:
                         break;
                     default:
                         yield return KeyValuePair.Create(propertyKey, property.Value.Value<string>());
+
                         break;
                 }
             }
         }
-        
+
+
         private const string ConsulIndexHeader = "X-Consul-Index";
 
         private readonly HttpClient _httpClient;
         private readonly IReadOnlyList<Uri> _consulUrls;
+        private readonly int _delayOnFailureInSeconds;
         private readonly Task _configurationListeningTask;
-        private int _consulUrlIndex; 
-        private int _failureCount;
         private int _consulConfigurationIndex;
     }
 }
