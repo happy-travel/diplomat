@@ -6,13 +6,9 @@
     <Nullable>enable</Nullable>
     <RootNamespace>HappyTravel.Diplomat.Consul.Api</RootNamespace>
     <AssemblyName>Diplomat.Consul.Api</AssemblyName>
-    <RootNamespace>HappyTravel.Diplomat.Consul.Api</RootNamespace>
-    <Version>0.9.0-alpha1</Version>
+    <Version>0.8.0-alpha1</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Company>HappyTravel</Company>
-    <Product>Diplomat</Product>
-    <PackageId>Diplomat</PackageId>
-    <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
     <PackageTags>consul consul-kv netcore</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Kirill Taran, Konstantin Yefremov</Authors>
