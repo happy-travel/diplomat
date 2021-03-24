@@ -3,6 +3,9 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+    <PackageId>HappyTravel.Diplomat.IntegrationConsole</PackageId>
+    <PackageProjectUrl>https://github.com/happy-travel/diplomat</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

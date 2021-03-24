@@ -5,6 +5,9 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <RootNamespace>HappyTravel.Diplomat.Consul.Api</RootNamespace>
+    <PackageId>HappyTravel.Diplomat.Consul.Api</PackageId>
+    <PackageProjectUrl>https://github.com/happy-travel/diplomat</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
