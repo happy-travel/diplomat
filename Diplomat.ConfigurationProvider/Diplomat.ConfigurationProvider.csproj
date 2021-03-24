@@ -6,6 +6,9 @@
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <RootNamespace>HappyTravel.Diplomat.ConfigurationProvider</RootNamespace>
+        <PackageId>HappyTravel.Diplomat.ConfigurationProvider</PackageId>
+        <PackageProjectUrl>https://github.com/happy-travel/diplomat</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
