@@ -5,14 +5,6 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <RootNamespace>HappyTravel.Diplomat.Consul.Api</RootNamespace>
-    <AssemblyName>Diplomat.Consul.Api</AssemblyName>
-    <Version>0.8.0-alpha1</Version>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Company>HappyTravel</Company>
-    <PackageTags>consul consul-kv netcore</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Kirill Taran, Konstantin Yefremov</Authors>
-    <Description>The Consul KV client for .Net Core</Description>
   </PropertyGroup>
 
   <ItemGroup>

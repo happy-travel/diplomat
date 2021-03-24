@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Consul.Api\Consul.Api.csproj" />
     <ProjectReference Include="..\Diplomat.Abstractions\Diplomat.Abstractions.csproj" />
     <ProjectReference Include="..\Diplomat.FileSettingsProvider\Diplomat.FileSettingsProvider.csproj" />
+    <ProjectReference Include="..\Diplomat.ConfigurationProvider\Diplomat.ConfigurationProvider.csproj" />
   </ItemGroup>
 
 </Project>
