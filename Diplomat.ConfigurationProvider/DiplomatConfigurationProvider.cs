@@ -88,7 +88,7 @@ namespace Diplomat.ConfigurationProvider
       
         private async Task<IDictionary<string, string>> ExecuteQueryAsync(int consulUrlIndex = 0, bool isBlocking = false)
         {
-            var requestUri = isBlocking ? $"?index={_consulConfigurationIndex}" : "";
+            var requestUri = isBlocking ? $"?index={_consulConfigurationIndex}" : string.Empty;
             using var request =
                 new HttpRequestMessage(HttpMethod.Get, new Uri(_consulUrls[consulUrlIndex], requestUri));
             using var response = await _httpClient.SendAsync(request);
