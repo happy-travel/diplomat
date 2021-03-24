@@ -6,8 +6,8 @@
     <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>Happytravel.com</Company>
-    <Authors>Kirill Taran</Authors>
-    <Version>1.0.0-alpha1</Version>
+    <Authors>Kirill Taran, Konstantin Yefremov</Authors>
+    <Version>1.1.0-alpha1</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>HappyTravel.Diplomat</PackageId>
     <PackageProjectUrl>https://github.com/happy-travel/diplomat</PackageProjectUrl>
@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Consul.Api\Consul.Api.csproj" />
     <ProjectReference Include="..\Diplomat.Abstractions\Diplomat.Abstractions.csproj" />
     <ProjectReference Include="..\Diplomat.FileSettingsProvider\Diplomat.FileSettingsProvider.csproj" />
+    <ProjectReference Include="..\Diplomat.ConfigurationProvider\Diplomat.ConfigurationProvider.csproj" />
   </ItemGroup>
 
 </Project>

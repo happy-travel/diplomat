@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Hosting;
 using System;
-using System.IO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Diplomat;
+using Diplomat.ConfigurationProvider.Extensions;
 using Diplomat.Extensions;
 using HappyTravel.Diplomat.Abstractions;
 using HappyTravel.Diplomat.Consul.Api;
@@ -16,32 +16,32 @@ namespace IntegrationConsole
     {
         private static async Task Main(string[] _)
         {
+            var consulUrl = Environment.GetEnvironmentVariable("CONSUL_HTTP_ADDR");
+            var consulPath = Environment.GetEnvironmentVariable("CONSUL_PATH");
+            var consulToken = Environment.GetEnvironmentVariable("CONSUL_HTTP_TOKEN");
+            
+            // Testing Diplomat as a service
             var builder = new HostBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.Configure<DiplomatOptions>(o =>
                     {
                         o.LocalSettingsPath = @"..\..\..\..\test-settings.json";
-                        o.KeyPrefix = "tsutsujigasaki/development";
+                        o.KeyPrefix = consulPath;
                     });
                     services.AddDiplomat();
                     services.AddConsulDiplomatProvider(ConfigFactory.FromEnvironment());
                 }).UseConsoleLifetime();
- 
+
             var host = builder.Build();
 
-            using var serviceScope = host.Services.CreateScope();
-            var serviceProvider = serviceScope.ServiceProvider;
-
-            var factory = serviceProvider.GetRequiredService<IDiplomatFactory>();
-            var diplomat = factory.Create();
-            var result = await diplomat.Get("");
-
+            // Testing Diplomat as a configuration provider
             var config = new ConfigurationBuilder()
-                .AddJsonStream(new MemoryStream(result))
+                .AddDiplomat(new List<Uri> {new(consulUrl)}, consulPath, consulToken)
                 .Build();
 
-            Console.WriteLine(result);
+            var debug = config.GetDebugView();
+            host.Run();
         }
     }
 }
