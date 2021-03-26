@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 
-namespace Diplomat.ConfigurationProvider
+namespace HappyTravel.Diplomat.ConfigurationProvider
 {
     // Based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
-    public class DiplomatConfigurationSource : IConfigurationSource
+    public class DiplomatConfigurationSource : JsonStreamConfigurationSource
     {
         public DiplomatConfigurationSource(List<Uri> urls, string key, string token, int delayOnFailureInSeconds)
         {
@@ -16,9 +17,9 @@ namespace Diplomat.ConfigurationProvider
         }
         
         
-        public IConfigurationProvider Build(IConfigurationBuilder builder)
+        public override IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return new DiplomatConfigurationProvider(_urls, _key, _token, _delayOnFailureInSeconds);
+            return new DiplomatConfigurationProvider(this, _urls, _key, _token, _delayOnFailureInSeconds);
         }
 
 

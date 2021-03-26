@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 
-namespace Diplomat.ConfigurationProvider.Extensions
+namespace HappyTravel.Diplomat.ConfigurationProvider.Extensions
 {
     // Based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
     public static class ConfigurationBuilderExtensions

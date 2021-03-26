@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Diplomat.ConfigurationProvider.Extensions;
 using Diplomat.Extensions;
 using HappyTravel.Diplomat.Abstractions;
+using HappyTravel.Diplomat.ConfigurationProvider.Extensions;
 using HappyTravel.Diplomat.Consul.Api;
 using HappyTravel.Diplomat.Consul.Api.Extensions;
 using Microsoft.Extensions.Configuration;

@@ -1,20 +1,26 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Configuration.Json;
 
-namespace Diplomat.ConfigurationProvider
+namespace HappyTravel.Diplomat.ConfigurationProvider
 {
     // Based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
-    public class DiplomatConfigurationProvider : Microsoft.Extensions.Configuration.ConfigurationProvider
+    public class DiplomatConfigurationProvider : JsonStreamConfigurationProvider
     {
-        public DiplomatConfigurationProvider(List<Uri> consulUrls, string key, string token, int delayOnFailureInSeconds)
+        public DiplomatConfigurationProvider(
+            JsonStreamConfigurationSource source,
+            List<Uri> consulUrls,
+            string key,
+            string token,
+            int delayOnFailureInSeconds
+        ) : base(source)
         {
             _consulUrls = consulUrls
                 .Select(url => new Uri(url, $"v1/kv/{key}"))
@@ -27,8 +33,8 @@ namespace Diplomat.ConfigurationProvider
             _delayOnFailureInSeconds = delayOnFailureInSeconds;
             _configurationListeningTask = new Task(ListenToConfigurationChanges);
         }
-
-
+        
+        
         private static HttpClient CreateHttpClient(string token)
         {
             var handler = new HttpClientHandler
@@ -40,8 +46,8 @@ namespace Diplomat.ConfigurationProvider
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             return client;
         }
-
-
+        
+        
         public override void Load()
         {
             LoadAsync().ConfigureAwait(false).GetAwaiter().GetResult();
@@ -50,13 +56,13 @@ namespace Diplomat.ConfigurationProvider
 
         private async Task LoadAsync()
         {
-            Data = await ExecuteQueryAsync();
+            base.Load(await ExecuteQueryAsync());
 
             if (_configurationListeningTask.Status == TaskStatus.Created)
                 _configurationListeningTask.Start();
         }
-
-
+        
+        
         private async void ListenToConfigurationChanges()
         {
             var consulUrlIndex = 0;
@@ -64,7 +70,7 @@ namespace Diplomat.ConfigurationProvider
             {
                 try
                 {
-                    Data = await ExecuteQueryAsync(consulUrlIndex, true);
+                    base.Load(await ExecuteQueryAsync(consulUrlIndex, true));
                     OnReload();
                 }
                 catch
@@ -75,8 +81,8 @@ namespace Diplomat.ConfigurationProvider
                 }
             }
         }
-
-
+        
+        
         private int GetNextConsulUrlIndex(int current)
         {
             var next = current + 1;
@@ -84,9 +90,9 @@ namespace Diplomat.ConfigurationProvider
                 ? next
                 : 0;
         }
-
-      
-        private async Task<IDictionary<string, string>> ExecuteQueryAsync(int consulUrlIndex = 0, bool isBlocking = false)
+       
+        
+        private async Task<Stream> ExecuteQueryAsync(int consulUrlIndex = 0, bool isBlocking = false)
         {
             var requestUri = isBlocking ? $"?index={_consulConfigurationIndex}" : string.Empty;
             using var request =
@@ -99,45 +105,15 @@ namespace Diplomat.ConfigurationProvider
                 int.TryParse(indexValue, out _consulConfigurationIndex);
             }
 
-            var tokens = JToken.Parse(await response.Content.ReadAsStringAsync());
-            return tokens
-                .Select(k => KeyValuePair.Create
-                (
-                    key: string.Empty,
-                    value: JToken.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(k.Value<string>("Value"))))
-                ))
-                .SelectMany(Flatten)
-                .ToDictionary(v => ConfigurationPath.Combine(v.Key.Split('/')), v => v.Value,
-                    StringComparer.OrdinalIgnoreCase);
-        }
+            await using var stream =  await response.Content.ReadAsStreamAsync();
+            using var document = await JsonDocument.ParseAsync(stream);
+            var data = document.RootElement
+                .EnumerateArray()
+                .Single() // The call to Consul is not recursive. The response will always be a JSON array with a single element
+                .GetProperty("Value")
+                .GetString();
 
-
-        private static IEnumerable<KeyValuePair<string, string>> Flatten(KeyValuePair<string, JToken> tuple)
-        {
-            if (!(tuple.Value is JObject value))
-                yield break;
-
-            foreach (var property in value)
-            {
-                var propertyKey = !string.IsNullOrEmpty(tuple.Key)
-                    ? $"{tuple.Key}/{property.Key}"
-                    : property.Key;
-
-                switch (property.Value.Type)
-                {
-                    case JTokenType.Object:
-                        foreach (var item in Flatten(KeyValuePair.Create(propertyKey, property.Value)))
-                            yield return item;
-
-                        break;
-                    case JTokenType.Array:
-                        break;
-                    default:
-                        yield return KeyValuePair.Create(propertyKey, property.Value.Value<string>());
-
-                        break;
-                }
-            }
+            return new MemoryStream(Convert.FromBase64String(data));
         }
 
 
