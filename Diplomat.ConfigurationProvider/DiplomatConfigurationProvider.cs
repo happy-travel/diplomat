@@ -104,12 +104,12 @@ namespace HappyTravel.Diplomat.ConfigurationProvider
                 var indexValue = response.Headers.GetValues(ConsulIndexHeader).FirstOrDefault();
                 int.TryParse(indexValue, out _consulConfigurationIndex);
             }
-            
-            var json = await response.Content.ReadAsStreamAsync();
-            using var document = await JsonDocument.ParseAsync(json);
+
+            await using var stream =  await response.Content.ReadAsStreamAsync();
+            using var document = await JsonDocument.ParseAsync(stream);
             var data = document.RootElement
                 .EnumerateArray()
-                .First()  // The call to Consul is not recursive. The response will always be a JSON array with a single element
+                .Single() // The call to Consul is not recursive. The response will always be a JSON array with a single element
                 .GetProperty("Value")
                 .GetString();
 
