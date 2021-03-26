@@ -5,9 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration.Json;
-using Newtonsoft.Json.Linq;
 
 namespace HappyTravel.Diplomat.ConfigurationProvider
 {
@@ -104,11 +104,14 @@ namespace HappyTravel.Diplomat.ConfigurationProvider
                 var indexValue = response.Headers.GetValues(ConsulIndexHeader).FirstOrDefault();
                 int.TryParse(indexValue, out _consulConfigurationIndex);
             }
-
-            // The call to Consul is not recursive. The response will always be a JSON array with a single element
-            var data = JToken.Parse(await response.Content.ReadAsStringAsync())
-                .First()
-                .Value<string>("Value");
+            
+            var json = await response.Content.ReadAsStreamAsync();
+            using var document = await JsonDocument.ParseAsync(json);
+            var data = document.RootElement
+                .EnumerateArray()
+                .First()  // The call to Consul is not recursive. The response will always be a JSON array with a single element
+                .GetProperty("Value")
+                .GetString();
 
             return new MemoryStream(Convert.FromBase64String(data));
         }
