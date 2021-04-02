@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diplomat.Abstractions\Diplomat.Abstractions.csproj" />
+    <ProjectReference Include="..\Diplomat.Abstractions\HappyTravel.Diplomat.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

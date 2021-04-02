@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Diplomat.Extensions
+namespace HappyTravel.Diplomat.Extensions
 {
     public static class ServiceCollectionExtensions
     {

@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 
-namespace Diplomat.DiplomatKvUpdater
+namespace HappyTravel.Diplomat.KvUpdater
 {
     internal class Program
     {

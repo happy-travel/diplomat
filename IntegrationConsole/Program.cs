@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Diplomat.Extensions;
+using HappyTravel.Diplomat.Extensions;
 using HappyTravel.Diplomat.Abstractions;
 using HappyTravel.Diplomat.ConfigurationProvider.Extensions;
 using HappyTravel.Diplomat.Consul.Api;
@@ -10,7 +10,7 @@ using HappyTravel.Diplomat.Consul.Api.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace IntegrationConsole
+namespace HappyTravel.Diplomat.IntegrationConsole
 {
     internal class Program
     {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using HappyTravel.Diplomat.Abstractions;
 
-namespace Diplomat
+namespace HappyTravel.Diplomat
 {
     public class Diplomat
     {

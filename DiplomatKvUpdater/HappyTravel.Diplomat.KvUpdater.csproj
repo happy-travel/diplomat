@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Consul.Api\Consul.Api.csproj" />
+    <ProjectReference Include="..\Consul.Api\HappyTravel.Diplomat.Consul.Api.csproj" />
   </ItemGroup>
 
 </Project>

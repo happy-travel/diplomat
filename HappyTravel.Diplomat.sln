@@ -3,24 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consul.Api", "Consul.Api\Consul.Api.csproj", "{396C66E9-CDF7-409B-9C6D-855AD97EFC85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyTravel.Diplomat.Consul.Api", "Consul.Api\HappyTravel.Diplomat.Consul.Api.csproj", "{396C66E9-CDF7-409B-9C6D-855AD97EFC85}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationConsole", "IntegrationConsole\IntegrationConsole.csproj", "{3279A753-9AAA-4F08-9FDC-61C95F90822F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyTravel.Diplomat.IntegrationConsole", "IntegrationConsole\HappyTravel.Diplomat.IntegrationConsole.csproj", "{3279A753-9AAA-4F08-9FDC-61C95F90822F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomatKvUpdater", "DiplomatKvUpdater\DiplomatKvUpdater.csproj", "{F98439EF-63D6-4E39-92D2-30F4A2AC1A73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyTravel.Diplomat.KvUpdater", "DiplomatKvUpdater\HappyTravel.Diplomat.KvUpdater.csproj", "{F98439EF-63D6-4E39-92D2-30F4A2AC1A73}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test Files", "Test Files", "{05ADAE78-6883-4BD3-8B86-01D7ABB838BE}"
 	ProjectSection(SolutionItems) = preProject
 		test-settings.json = test-settings.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diplomat", "Diplomat\Diplomat.csproj", "{28298B59-0BDE-4CD3-8D1F-9C1190D24478}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyTravel.Diplomat", "Diplomat\HappyTravel.Diplomat.csproj", "{28298B59-0BDE-4CD3-8D1F-9C1190D24478}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diplomat.Abstractions", "Diplomat.Abstractions\Diplomat.Abstractions.csproj", "{F7BB7466-2D88-48AA-86BD-F33566E74C16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyTravel.Diplomat.Abstractions", "Diplomat.Abstractions\HappyTravel.Diplomat.Abstractions.csproj", "{F7BB7466-2D88-48AA-86BD-F33566E74C16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diplomat.FileSettingsProvider", "Diplomat.FileSettingsProvider\Diplomat.FileSettingsProvider.csproj", "{53BF4567-D3CE-4240-93DA-A9A84B21E0DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyTravel.Diplomat.FileSettingsProvider", "Diplomat.FileSettingsProvider\HappyTravel.Diplomat.FileSettingsProvider.csproj", "{53BF4567-D3CE-4240-93DA-A9A84B21E0DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diplomat.ConfigurationProvider", "Diplomat.ConfigurationProvider\Diplomat.ConfigurationProvider.csproj", "{D9F185DE-FE34-458F-A001-88D22C1723D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyTravel.Diplomat.ConfigurationProvider", "Diplomat.ConfigurationProvider\HappyTravel.Diplomat.ConfigurationProvider.csproj", "{D9F185DE-FE34-458F-A001-88D22C1723D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

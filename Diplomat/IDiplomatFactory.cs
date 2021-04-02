@@ -1,4 +1,4 @@
-﻿namespace Diplomat
+﻿namespace HappyTravel.Diplomat
 {
     public interface IDiplomatFactory
     {
