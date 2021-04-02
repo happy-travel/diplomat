@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Http.Headers;
-using HappyTravel.Diplomat.Abstractions;
+using HappyTravel.ConsulKeyValueClient.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HappyTravel.Diplomat.Consul.Api.Extensions
+namespace HappyTravel.ConsulKeyValueClient.ConsulClient.Extensions
 {
     public static class ServiceCollectionExtensions
     {

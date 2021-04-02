@@ -1,4 +1,4 @@
-﻿namespace HappyTravel.Diplomat.Consul.Api
+﻿namespace HappyTravel.ConsulKeyValueClient.ConsulClient
 {
     public class Config
     {

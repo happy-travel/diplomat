@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HappyTravel.Diplomat.Abstractions
+namespace HappyTravel.ConsulKeyValueClient.Abstractions
 {
     public interface ISettingsReader
     {

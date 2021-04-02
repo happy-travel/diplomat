@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using HappyTravel.Diplomat.Abstractions;
+using HappyTravel.ConsulKeyValueClient.Abstractions;
 
-namespace HappyTravel.Diplomat
+namespace HappyTravel.ConsulKeyValueClient
 {
     public class Diplomat
     {

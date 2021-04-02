@@ -2,15 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HappyTravel.Diplomat.Extensions;
-using HappyTravel.Diplomat.Abstractions;
-using HappyTravel.Diplomat.ConfigurationProvider.Extensions;
-using HappyTravel.Diplomat.Consul.Api;
-using HappyTravel.Diplomat.Consul.Api.Extensions;
+using HappyTravel.ConsulKeyValueClient.Extensions;
+using HappyTravel.ConsulKeyValueClient.Abstractions;
+using HappyTravel.ConsulKeyValueClient.ConfigurationProvider.Extensions;
+using HappyTravel.ConsulKeyValueClient.ConsulClient;
+using HappyTravel.ConsulKeyValueClient.ConsulClient.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HappyTravel.Diplomat.IntegrationConsole
+namespace HappyTravel.ConsulKeyValueClient.IntegrationConsole
 {
     internal class Program
     {

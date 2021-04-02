@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace HappyTravel.Diplomat.Extensions
+namespace HappyTravel.ConsulKeyValueClient.Extensions
 {
     public static class ServiceCollectionExtensions
     {

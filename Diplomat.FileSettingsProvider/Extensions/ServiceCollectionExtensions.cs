@@ -1,7 +1,7 @@
-﻿using HappyTravel.Diplomat.Abstractions;
+﻿using HappyTravel.ConsulKeyValueClient.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HappyTravel.Diplomat.FileSettingsProvider.Extensions
+namespace HappyTravel.ConsulKeyValueClient.FileSettingsProvider.Extensions
 {
     public static class ServiceCollectionExtensions
     {

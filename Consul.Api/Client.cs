@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace HappyTravel.Diplomat.Consul.Api
+namespace HappyTravel.ConsulKeyValueClient.ConsulClient
 {
     public class Client
     {

@@ -1,4 +1,4 @@
-﻿namespace HappyTravel.Diplomat
+﻿namespace HappyTravel.ConsulKeyValueClient
 {
     public interface IDiplomatFactory
     {

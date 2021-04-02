@@ -9,7 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration.Json;
 
-namespace HappyTravel.Diplomat.ConfigurationProvider
+namespace HappyTravel.ConsulKeyValueClient.ConfigurationProvider
 {
     // Based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
     public class DiplomatConfigurationProvider : JsonStreamConfigurationProvider

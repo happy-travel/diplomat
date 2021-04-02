@@ -1,4 +1,4 @@
-﻿namespace HappyTravel.Diplomat.Abstractions
+﻿namespace HappyTravel.ConsulKeyValueClient.Abstractions
 {
     public class DiplomatOptions
     {

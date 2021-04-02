@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diplomat.Abstractions\HappyTravel.Diplomat.Abstractions.csproj" />
+    <ProjectReference Include="..\Diplomat.Abstractions\HappyTravel.ConsulKeyValueClient.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

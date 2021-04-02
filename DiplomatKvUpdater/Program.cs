@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using HappyTravel.Diplomat.Consul.Api;
-using HappyTravel.Diplomat.Consul.Api.Extensions;
+using HappyTravel.ConsulKeyValueClient.ConsulClient;
+using HappyTravel.ConsulKeyValueClient.ConsulClient.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 
-namespace HappyTravel.Diplomat.KvUpdater
+namespace HappyTravel.ConsulKeyValueClient.KvUpdater
 {
     internal class Program
     {

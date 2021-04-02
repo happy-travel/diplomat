@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 
-namespace HappyTravel.Diplomat.ConfigurationProvider
+namespace HappyTravel.ConsulKeyValueClient.ConfigurationProvider
 {
     // Based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
     public class DiplomatConfigurationSource : JsonStreamConfigurationSource

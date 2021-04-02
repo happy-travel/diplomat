@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HappyTravel.Diplomat.Abstractions;
+using HappyTravel.ConsulKeyValueClient.Abstractions;
 using Microsoft.Extensions.Options;
 
-namespace HappyTravel.Diplomat.Consul.Api
+namespace HappyTravel.ConsulKeyValueClient.ConsulClient
 {
     public class ConsulSettingsProvider : ISettingsProvider
     {

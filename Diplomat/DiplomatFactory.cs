@@ -1,7 +1,7 @@
 ﻿using System;
-using HappyTravel.Diplomat.Abstractions;
+using HappyTravel.ConsulKeyValueClient.Abstractions;
 
-namespace HappyTravel.Diplomat
+namespace HappyTravel.ConsulKeyValueClient
 {
     public class DiplomatFactory : IDiplomatFactory
     {

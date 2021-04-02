@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HappyTravel.Diplomat.Abstractions
+namespace HappyTravel.ConsulKeyValueClient.Abstractions
 {
     public interface ISettingsProvider
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using HappyTravel.Diplomat.Consul.Api.Constants;
+using HappyTravel.ConsulKeyValueClient.ConsulClient.Constants;
 
-namespace HappyTravel.Diplomat.Consul.Api
+namespace HappyTravel.ConsulKeyValueClient.ConsulClient
 {
     public class ConfigFactory
     {
