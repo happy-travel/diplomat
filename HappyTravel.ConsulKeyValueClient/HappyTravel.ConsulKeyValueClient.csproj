@@ -7,12 +7,13 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>Happytravel.com</Company>
     <Authors>Kirill Taran, Konstantin Yefremov</Authors>
-    <Version>1.1.0-alpha1</Version>
+    <Version>1.1.0.1-alpha1</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>HappyTravel.Diplomat</PackageId>
     <PackageProjectUrl>https://github.com/happy-travel/diplomat</PackageProjectUrl>
     <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
     <PackageTags>consul kv-store</PackageTags>
+    <PackageReleaseNotes>Renamed solution, projects, namespaces and project folders</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
