@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diplomat.Abstractions\HappyTravel.ConsulKeyValueClient.Abstractions.csproj" />
+    <ProjectReference Include="..\HappyTravel.ConsulKeyValueClient.Abstractions\HappyTravel.ConsulKeyValueClient.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,10 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Consul.Api\HappyTravel.ConsulKeyValueClient.ConsulClient.csproj" />
-    <ProjectReference Include="..\Diplomat.Abstractions\HappyTravel.ConsulKeyValueClient.Abstractions.csproj" />
-    <ProjectReference Include="..\Diplomat.FileSettingsProvider\HappyTravel.ConsulKeyValueClient.FileSettingsProvider.csproj" />
-    <ProjectReference Include="..\Diplomat.ConfigurationProvider\HappyTravel.ConsulKeyValueClient.ConfigurationProvider.csproj" />
+    <ProjectReference Include="..\HappyTravel.ConsulKeyValueClient.ConsulClient\HappyTravel.ConsulKeyValueClient.ConsulClient.csproj" />
+    <ProjectReference Include="..\HappyTravel.ConsulKeyValueClient.Abstractions\HappyTravel.ConsulKeyValueClient.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

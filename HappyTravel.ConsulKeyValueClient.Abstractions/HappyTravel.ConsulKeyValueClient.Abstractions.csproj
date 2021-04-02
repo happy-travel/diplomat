@@ -7,7 +7,6 @@
     <PackageId>HappyTravel.Diplomat.Abstractions</PackageId>
     <PackageProjectUrl>https://github.com/happy-travel/diplomat</PackageProjectUrl>
     <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
-    <RootNamespace>HappyTravel.Diplomat.Abstractions</RootNamespace>
   </PropertyGroup>
 
 </Project>

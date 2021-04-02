@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diplomat.ConfigurationProvider\HappyTravel.ConsulKeyValueClient.ConfigurationProvider.csproj" />
-    <ProjectReference Include="..\Diplomat\HappyTravel.ConsulKeyValueClient.csproj" />
+    <ProjectReference Include="..\HappyTravel.ConsulKeyValueClient.ConfigurationProvider\HappyTravel.ConsulKeyValueClient.ConfigurationProvider.csproj" />
+    <ProjectReference Include="..\HappyTravel.ConsulKeyValueClient\HappyTravel.ConsulKeyValueClient.csproj" />
   </ItemGroup>
 
 </Project>
