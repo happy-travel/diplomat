@@ -37,7 +37,7 @@ namespace HappyTravel.ConsulKeyValueClient.IntegrationConsole
 
             // Testing Diplomat as a configuration provider
             var config = new ConfigurationBuilder()
-                .AddDiplomat(new List<Uri> {new(consulUrl)}, consulPath, consulToken)
+                .AddConsulKeyValueClient(new List<Uri> {new(consulUrl)}, consulPath, consulToken)
                 .Build();
 
             var debug = config.GetDebugView();

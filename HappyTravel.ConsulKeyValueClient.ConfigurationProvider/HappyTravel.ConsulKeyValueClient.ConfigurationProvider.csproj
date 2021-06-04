@@ -1,14 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <PackageVersion>1.4</PackageVersion>
+        <PackageVersion>1.5.0</PackageVersion>
         <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
-        <RootNamespace>HappyTravel.Diplomat.ConfigurationProvider</RootNamespace>
-        <PackageId>HappyTravel.Diplomat.ConfigurationProvider</PackageId>
-        <PackageProjectUrl>https://github.com/happy-travel/diplomat</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
+        <RootNamespace>HappyTravel.ConsulKeyValueClient.ConfigurationProvider</RootNamespace>
+        <PackageId>HappyTravel.ConsulKeyValueClient.ConfigurationProvider</PackageId>
+        <PackageProjectUrl>https://github.com/happy-travel/consul-key-value-client</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/happy-travel/consul-key-value-client</RepositoryUrl>
+        <PackageReleaseNotes>Renamed package and all references to old name</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
