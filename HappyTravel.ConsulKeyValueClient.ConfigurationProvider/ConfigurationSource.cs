@@ -6,9 +6,9 @@ using Microsoft.Extensions.Configuration.Json;
 namespace HappyTravel.ConsulKeyValueClient.ConfigurationProvider
 {
     // Based on https://www.natmarchand.fr/consul-configuration-aspnet-core/
-    public class DiplomatConfigurationSource : JsonStreamConfigurationSource
+    public class ConsulKeyValueClientConfigurationSource : JsonStreamConfigurationSource
     {
-        public DiplomatConfigurationSource(List<Uri> urls, string key, string token, int delayOnFailureInSeconds)
+        public ConsulKeyValueClientConfigurationSource(List<Uri> urls, string key, string token, int delayOnFailureInSeconds)
         {
             _urls = urls;
             _key = key;
@@ -19,7 +19,7 @@ namespace HappyTravel.ConsulKeyValueClient.ConfigurationProvider
         
         public override IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return new DiplomatConfigurationProvider(this, _urls, _key, _token, _delayOnFailureInSeconds);
+            return new ConsulKeyValueClientConfigurationProvider(this, _urls, _key, _token, _delayOnFailureInSeconds);
         }
 
 
