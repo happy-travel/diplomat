@@ -5,8 +5,8 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <PackageId>HappyTravel.Diplomat.Abstractions</PackageId>
-    <PackageProjectUrl>https://github.com/happy-travel/diplomat</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/happy-travel/consul-key-value-client</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/happy-travel/consul-key-value-client</RepositoryUrl>
   </PropertyGroup>
 
 </Project>

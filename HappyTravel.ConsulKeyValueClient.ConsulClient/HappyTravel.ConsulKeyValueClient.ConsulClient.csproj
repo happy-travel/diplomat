@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <RootNamespace>HappyTravel.Diplomat.Consul.Api</RootNamespace>
     <PackageId>HappyTravel.Diplomat.Consul.Api</PackageId>
-    <PackageProjectUrl>https://github.com/happy-travel/diplomat</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/happy-travel/consul-key-value-client</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/happy-travel/consul-key-value-client</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

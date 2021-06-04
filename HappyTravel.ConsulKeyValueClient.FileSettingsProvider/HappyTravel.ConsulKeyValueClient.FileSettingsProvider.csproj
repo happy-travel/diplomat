@@ -6,8 +6,8 @@
     <LangVersion>latest</LangVersion>
     <RootNamespace>HappyTravel.Diplomat.FileSettingsProvider</RootNamespace>
     <PackageId>HappyTravel.Diplomat.FileSettingsProvider</PackageId>
-    <PackageProjectUrl>https://github.com/happy-travel/diplomat</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/happy-travel/diplomat</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/happy-travel/consul-key-value-client</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/happy-travel/consul-key-value-client</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
